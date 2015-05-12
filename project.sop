@@ -1,0 +1,48 @@
+#
+# Project:       XBee test
+# Author:        Igor Serikov
+# Date:          8/11/2014
+#
+# Description:   SynthOS project file
+#
+# Copyright (c) 2014 Zeidman Technologies, Inc.
+# 15565 Swiss Creek Lane, Cupertino California, 95014 
+# All Rights Reserved
+#
+# Zeidman Technologies gives an unlimited, nonexclusive license to
+# use this code  as long as this header comment section is kept
+# intact in all distributions and all future versions of this file
+# and the routines within it.
+#
+
+[preprocessor]
+define = __AVR_ATmega328P__
+define = F_CPU=16000000UL
+include = avr-include
+include = avr-gcc-include
+
+[source]
+file = test.c
+file = xbee.c
+file = uart.c
+file = timer.c
+file = hardware.c
+file = synthos-support.c
+
+[interrupt_global]
+enable    = ON
+getMask   = get_mask
+setMask   = set_mask
+enableAll = enable_ints
+
+[task]
+entry = test
+type = loop
+
+[task]
+entry = xbee_request
+type = call
+
+[task]
+entry = xbee_receive
+type = call
